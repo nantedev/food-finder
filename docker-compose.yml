@@ -7,7 +7,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/home/node/code 
-    working_dir: /home/node/code/
+    working_dir: /home/node/code/foodfinder-application
     depends_on:
       - backend
     environment:
