@@ -1,8 +1,8 @@
-export declare type FilterLocationType = {
+export type FilterLocationType = {
     location_id: string | string[];
 }
 
-export declare type FilterWishType = {
+export type FilterWishlistType = {
     on_wishlist: {
         $in: string[];
     }
