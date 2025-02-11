@@ -1,6 +1,6 @@
-print("Seeding the collection 'locations' in the 'foodlist' db");
+db = db.getSiblingDB("foodfinder");
 
-db.locations.insert([
+db.locations.insertMany([
     {
         address: "6220 Avenue U",
         zipcode: "NY 11234",
