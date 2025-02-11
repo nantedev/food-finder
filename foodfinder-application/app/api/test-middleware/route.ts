@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/middleware/db-connect";
-import Locations from "@/mongoose/locations/model";
+import {findAllLocations} from "mongoose/locations/services";
+
 
 export async function GET() {
   try {
@@ -8,7 +9,7 @@ export async function GET() {
     await dbConnect();
     console.log("✅ Connexion réussie !");
     
-    const locations = await Locations.find({});
+    const locations = await findAllLocations();
     console.log("📌 Locations trouvées :", locations);
 
     return NextResponse.json(locations, { status: 200 });
