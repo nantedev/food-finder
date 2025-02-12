@@ -11,14 +11,13 @@ export const locationMutations = {
         param: UpdateWishlistInterface,
         context: {}
     ) => {
-        return await updateWishlist(param.location_id, param.user_id,
-            "remove"
-        );
+        return await updateWishlist(param.location_id, param.user_id, "remove");
     },
     addWishlist: async (
         _: any, 
         param: UpdateWishlistInterface, 
-        context: {}) => {
+        context: {}
+    ) => {
         return await updateWishlist(param.location_id, param.user_id, "add");
     },
 };
