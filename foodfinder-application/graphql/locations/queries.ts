@@ -10,7 +10,7 @@ export const locationQueries = {
     ) => {
         return await findLocationsById(param.location_ids);
     },
-    onUserWishList: async (
+    onUserWishlist: async (
         _: any, 
         param: {user_id: string}
     ) => {
