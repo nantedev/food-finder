@@ -1,25 +1,26 @@
-import mongoose, {ConnectOptions} from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 
 const MONGO_URI = process.env.MONGO_URI || "";
 
-if (!MONGO_URI.length) {
-    throw new Error(
-        "Please define the MONGO_URI environment variable (.env.local)"
-    );
+if (!MONGO_URI) {
+    throw new Error("❌ Please define the MONGO_URI environment variable (.env.local)");
 }
-let cached = global.mongoose;
+
+// ✅ Utilisation de globalThis pour éviter les problèmes avec Edge Runtime
+let cached = (globalThis as any).mongoose;
 
 if (!cached) {
-    cached = global.mongoose = {conn: null, promise: null};
+    cached = (globalThis as any).mongoose = { conn: null, promise: null };
 }
 
-async function dbConnect(): Promise<any> {
-
+async function dbConnect(): Promise<typeof mongoose> {
     if (cached.conn) {
+        console.log("✅ MongoDB already connected.");
         return cached.conn;
     }
 
     if (!cached.promise) {
+        console.log("🔄 Connecting to MongoDB...");
 
         const opts: ConnectOptions = {
             bufferCommands: false,
@@ -28,18 +29,25 @@ async function dbConnect(): Promise<any> {
             socketTimeoutMS: 20000,
         };
 
+        mongoose.set("strictQuery", true); // ✅ Meilleure compatibilité
+
         cached.promise = mongoose
             .connect(MONGO_URI, opts)
-            .then((mongoose) => mongoose)
+            .then((mongooseInstance) => {
+                console.log("✅ MongoDB connected successfully!");
+                return mongooseInstance;
+            })
             .catch((err) => {
-                throw new Error(String(err));
+                console.error("❌ MongoDB connection error:", err);
+                return Promise.reject(err);
             });
     }
 
     try {
         cached.conn = await cached.promise;
     } catch (err) {
-        throw new Error(String(err));
+        console.error("❌ MongoDB connection failed:", err);
+        throw new Error("Failed to connect to MongoDB.");
     }
 
     return cached.conn;
