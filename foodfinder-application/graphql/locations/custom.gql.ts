@@ -1,4 +1,6 @@
-export default `
+import { gql } from "graphql-tag";
+
+export const typeDefs = gql`
     directive @cacheControl(maxAge:Int) on FIELD_DEFINITION | OBJECT
     type Location @cacheControl(maxAge: 86400) {
         address: String

@@ -1,19 +1,10 @@
-import gql from "graphql-tag";
-
-import locationTypeDefsCustom from "graphql/locations/custom.gql";
-import locationTypeDefsQueries from "graphql/locations/queries.gql";
-import locationTypeDefsMutations from "graphql/locations/mutations.gql";
+import { gql } from "graphql-tag"; // Assurez-vous d'importer gql
+import { queries } from "./locations/queries.gql";
+import { mutations } from "./locations/mutations.gql";
+import { typeDefs as customTypes } from "./locations/custom.gql"; // Types personnalisés
 
 export const typeDefs = gql`
-
-    ${locationTypeDefsCustom}
-
-    type Query {
-        ${locationTypeDefsQueries}
-    }
-
-    type Mutation {
-        ${locationTypeDefsMutations}
-    }
-
+    ${customTypes} 
+    ${queries}      
+    ${mutations}     
 `;
