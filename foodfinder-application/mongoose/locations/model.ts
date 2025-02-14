@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
-import {LocationSchema, LocationType } from "./schema";
+import { LocationSchema, LocationType } from "./schema";
 
-export default mongoose.models.locations || mongoose.model<LocationType>("locations", LocationSchema);
+// ✅ Vérification pour éviter les modèles dupliqués
+const LocationModel = mongoose.models.Locations || mongoose.model<LocationType>("Locations", LocationSchema);
+
+export default LocationModel;

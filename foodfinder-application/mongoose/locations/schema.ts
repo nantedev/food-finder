@@ -1,42 +1,44 @@
-import { Schema, InferSchemaType } from "mongoose";
+import { Schema, InferSchemaType, model } from "mongoose";
 
-export const LocationSchema:Schema = new Schema<LocationType>({
+export const LocationSchema = new Schema({
     address: {
-        type: "String",
+        type: String, 
         required: true,
     },
     street: {
-        type: "String",
+        type: String,
         required: true,
     },
     zipcode: {
-        type: "String",
+        type: String,
         required: true,
     },
     borough: {
-        type: "String",
+        type: String,
         required: true,
     },
     cuisine: {
-        type: "String",
+        type: String,
         required: true,
     },
     grade: {
-        type: "String",
+        type: String,
         required: true,
     },
     name: {
-        type: "String",
+        type: String,
         required: true,
     },
     on_wishlist: {
-        type: ["String"],
+        type: [String],  
         required: true,
     },
     location_id: {
-        type: "String",
+        type: String,
         required: true,
     },
-})
+});
 
-export declare type LocationType = InferSchemaType<typeof LocationSchema>;
+// ✅ Définition du type TypeScript basé sur le schéma
+export type LocationType = InferSchemaType<typeof LocationSchema>;
+
