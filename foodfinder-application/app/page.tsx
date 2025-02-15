@@ -1,17 +1,17 @@
-import { Metadata } from "next";
 import dbConnect from "@/middleware/db-connect";
 import { findAllLocations } from "@/mongoose/locations/services";
 import { LocationType } from "@/mongoose/locations/schema";
 import { LocationsList } from "@/app/components/locations-list/LocationsList";
 
-// Metadata (Replaces <Head>)
-export const metadata: Metadata = {
+// ✅ Utilisation de Metadata (Remplace <Head>)
+export const metadata = {
   title: "The Food Finder - Home",
-  description: "The Food Finder - Home",
+  description: "Find the best food places around!",
 };
 
+// ✅ Récupération des données directement dans le composant (Next.js 15)
 const HomePage = async () => {
-  await dbConnect();
+  await dbConnect(); // Connexion à la base de données
   let locations: LocationType[] = [];
 
   try {
