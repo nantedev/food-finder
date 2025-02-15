@@ -1,70 +1,46 @@
-import Locations from "mongoose/locations/model";
-import { FilterWishlistType, FilterLocationType } from "mongoose/locations/cutom";
-import {LocationType} from "mongoose/locations/schema";
-import {QueryOptions} from "mongoose";
+import Locations from "@/mongoose/locations/model";
+import { FilterWishlistType, FilterLocationType } from "@/mongoose/locations/cutom";
+import { LocationType } from "@/mongoose/locations/schema";
+import { QueryOptions } from "mongoose";
+import { serializeData } from "@/utils/serialize";
 
 async function findLocations(
     filter: FilterLocationType | FilterWishlistType | {}
-): Promise<LocationType[] | []> {
+): Promise<LocationType[]> {
     try {
-    let result: Array<LocationType | undefined> = await Locations.find(filter);
-        return result as LocationType[];
+        let result: LocationType[] = await Locations.find(filter);
+        return serializeData(result);
     } catch (err) {
-        console.log(err);
+        console.error("Error fetching locations:", err);
     }
-    return [];
+    return []; //Évite les retours `undefined`
 }
 
-export async function findAllLocations(): Promise<LocationType[] | []> {
-    let filter = {};
-    return await findLocations(filter);
+export async function findAllLocations(): Promise<LocationType[]> {
+    return await findLocations({});
 }
 
-export async function findLocationsById(
-    location_ids: string[]
-): Promise<LocationType[] | []> {
-    let filter = {location_id: location_ids};
-    return await findLocations(filter);
+export async function findLocationsById(location_ids: string[]): Promise<LocationType[]> {
+    return await findLocations({ location_id: { $in: location_ids } });
 }
 
-export async function onUserWishlist(
-    user_id: string
-): Promise<LocationType[] | []> {
-    let filter: FilterWishlistType = {on_wishlist: {
-        $in: [user_id],
-    },
-};
-return await findLocations(filter);
+export async function onUserWishlist(user_id: string): Promise<LocationType[]> {
+    return await findLocations({ on_wishlist: { $in: [user_id] } });
 }
 
 export async function updateWishlist(
-location_id: string,
-user_id: string,
-action: string
-) : Promise<LocationType | null | {}>
-{
-let filter = {location_id: location_id};
-let options: QueryOptions = {upsert: true, returnDocument: "after"};
-let update = {};
+    location_id: string,
+    user_id: string,
+    action: "add" | "remove"
+): Promise<LocationType | null> {
+    let update = action === "add" ? { $push: { on_wishlist: user_id } } : { $pull: { on_wishlist: user_id } };
+    let options: QueryOptions = { upsert: true, returnDocument: "after" };
 
-switch (action) {
-    case "add":
-        update = {$push: {on_wishlist: user_id}};
-        break;
-    case "remove":
-        update = {$pull: {on_wishlist: user_id}};
-        break;
-}
-
-try {
-    let result: LocationType | null = await Locations.findOneAndUpdate(
-        filter,
-        update,
-        options
-    );
-    return result;
-} catch (err) {
-    console.log(err);
-}
-return {};
+    try {
+        let result = await Locations.findOneAndUpdate({ location_id }, update, options);
+        return result ? serializeData(result) : null;
+    } catch (err) {
+        console.error("Error updating wishlist:", err);
+   return null; //Évite les retours `{}` ou `undefined
+    }
 }
