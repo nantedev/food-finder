@@ -1,16 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import styled from "styled-components";
 import { LocationType } from "@/mongoose/locations/schema";
-
-
 import { JSX } from "react";
 
 interface PropsInterface {
     location: LocationType;
 }
 
-
-export const LocationsListItem = (props : PropsInterface): JSX.Element => {
+export const LocationsListItem = (props: PropsInterface): JSX.Element => {
     const location = props.location;
     return (
         <>
@@ -27,7 +26,6 @@ export const LocationsListItem = (props : PropsInterface): JSX.Element => {
         </>
     );
 };
-
 
 const LocationsListItemStyled = styled.li`
     background-color: #fff;
