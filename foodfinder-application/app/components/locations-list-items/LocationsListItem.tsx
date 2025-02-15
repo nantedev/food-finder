@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { LocationType } from "mongoose/locations/schema";
+import { LocationType } from "@/mongoose/locations/schema";
 
 
 import { JSX } from "react";

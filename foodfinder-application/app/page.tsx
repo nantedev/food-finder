@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import dbConnect from "@/middleware/db-connect";
 import { findAllLocations } from "@/mongoose/locations/services";
 import { LocationType } from "@/mongoose/locations/schema";
-import { LocationsList } from "./components/locations-list/LocationsList";
+import { LocationsList } from "@/app/components/locations-list/LocationsList";
 
 // Metadata (Replaces <Head>)
 export const metadata: Metadata = {

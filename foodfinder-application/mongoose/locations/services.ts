@@ -1,6 +1,6 @@
-import Locations from "mongoose/locations/model";
-import { FilterWishlistType, FilterLocationType } from "mongoose/locations/cutom";
-import {LocationType} from "mongoose/locations/schema";
+import Locations from "@/mongoose/locations/model";
+import { FilterWishlistType, FilterLocationType } from "@/mongoose/locations/cutom";
+import {LocationType} from "@/mongoose/locations/schema";
 import {QueryOptions} from "mongoose";
 
 async function findLocations(

@@ -1,7 +1,7 @@
 import { LocationType } from "@/mongoose/locations/schema";
 import styled from "styled-components";
 import { JSX } from "react";
-import { LocationsListItem } from "../locations-list-items/LocationsListItem";
+import { LocationsListItem } from "@/app/components/locations-list-items/LocationsListItem";
 
 interface PropsInterface {
     locations: LocationType[];
