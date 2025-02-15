@@ -2,17 +2,18 @@ import Locations from "@/mongoose/locations/model";
 import { FilterWishlistType, FilterLocationType } from "@/mongoose/locations/cutom";
 import { LocationType } from "@/mongoose/locations/schema";
 import { QueryOptions } from "mongoose";
+import { serializeData } from "@/utils/serialize";
 
 async function findLocations(
     filter: FilterLocationType | FilterWishlistType | {}
 ): Promise<LocationType[]> {
     try {
-        let result: LocationType[] = await Locations.find(filter).lean() as unknown as LocationType[]; // ✅ Ajout de .lean()
-        return result as unknown as LocationType[];
+        let result: LocationType[] = await Locations.find(filter);
+        return serializeData(result);
     } catch (err) {
         console.error("Error fetching locations:", err);
     }
-    return []; // ✅ Évite les retours `undefined`
+    return []; //Évite les retours `undefined`
 }
 
 export async function findAllLocations(): Promise<LocationType[]> {
@@ -36,10 +37,10 @@ export async function updateWishlist(
     let options: QueryOptions = { upsert: true, returnDocument: "after" };
 
     try {
-        let result = await Locations.findOneAndUpdate({ location_id }, update, options).lean(); // ✅ Ajout de .lean()
-        return result as unknown as LocationType;
+        let result = await Locations.findOneAndUpdate({ location_id }, update, options);
+        return result ? serializeData(result) : null;
     } catch (err) {
         console.error("Error updating wishlist:", err);
+   return null; //Évite les retours `{}` ou `undefined
     }
-    return null; // ✅ Évite les retours `{}` ou `undefined`
 }
