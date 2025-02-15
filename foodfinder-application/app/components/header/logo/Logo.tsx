@@ -8,17 +8,17 @@ import styled from "styled-components"
 export const Logo = ():JSX.Element => {
     return (
         <LogoStyled>
-            <Link href="/" passHref>
+            <Link href="/" passHref style={{ position: 'relative', display: 'block', width: '100%', height: '100%' }}>
                 <Image
                     src={logo}
                     alt="Logo: Food Finder"
-                    sizes="100vw"
+                    sizes="(max-width: 600px) 119px, 169px"
                     fill
-                    priority
+                    priority={false}
+                    loading="eager"
                 />
             </Link>
         </LogoStyled>
-
     )
 }
 
