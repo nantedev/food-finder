@@ -16,7 +16,9 @@ interface CustomJWT {
 //Étendre le type de la session
 declare module "next-auth" {
     interface Session {
-        user: CustomUser;
+        user: {
+            fdlst_private_userId: string;
+        } & DefaultSession["user"];
     }
 }
 
