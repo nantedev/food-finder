@@ -2,6 +2,7 @@
 import { JSX } from "react";
 import styled from "styled-components";
 import { Logo } from "./logo/Logo";
+import AuthElement from "./auth-element/AuthElement";
 
 
 export const Header = (): JSX.Element => {
@@ -9,6 +10,7 @@ export const Header = (): JSX.Element => {
         <HeaderStyled>
             <div className="layout-grid">
                 <Logo />
+                <AuthElement />
             </div>
         </HeaderStyled>
     );
