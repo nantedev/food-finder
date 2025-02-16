@@ -57,4 +57,5 @@ const authOptions: NextAuthOptions = {
 };
 
 //Exportation des méthodes HTTP
-export const { GET, POST } = NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
