@@ -18,18 +18,18 @@ export const Header = (): JSX.Element => {
 
 
 const HeaderStyled = styled.header`
-    background: white;
-    border-bottom: 1px solid #eaeaea;
+    background-color: white;
+    color: #fff;
     padding: 1rem 0;
-    position: sticky;
-    top: 0;
     width: 100%;
-    z-index: 1;
+    position: fixed;
 
-@media (min-width: 600px) {
     .layout-grid {
-        flex-direction: row;
-        padding: 0 2rem;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        max-width: 750px;
+        width: 100%;
     }
-}
 `
