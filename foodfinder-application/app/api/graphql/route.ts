@@ -4,6 +4,7 @@ import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { NextRequest, NextResponse } from "next/server";
 import { resolvers } from "@/graphql/resolvers";
 import { typeDefs } from "@/graphql/schema";
+import { getToken } from "next-auth/jwt";
 
 // ✅ Initialisation du serveur Apollo
 const server = new ApolloServer<BaseContext>({
@@ -13,9 +14,12 @@ const server = new ApolloServer<BaseContext>({
 
 // ✅ Création du handler GraphQL pour Next.js 13+
 const handler = startServerAndCreateNextHandler(server, {
-    context: async () => {
-        await dbConnect(); 
-        return { token: {} };
+    context: async (req: NextRequest) => {
+        await dbConnect(); // Connexion à la BDD
+
+        const token = await getToken({ req }); // Récupération du token
+
+        return { token }; // Ajout du token au contexte
     },
 });
 
