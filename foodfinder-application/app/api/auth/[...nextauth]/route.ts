@@ -32,7 +32,7 @@ const createUserId = (base: string): string => {
 };
 
 //Configuration NextAuth avec typage
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_CLIENT_ID || "",

@@ -1,4 +1,4 @@
-import { Schema, InferSchemaType, model } from "mongoose";
+import { Schema, InferSchemaType } from "mongoose";
 
 export const LocationSchema = new Schema({
     address: {
