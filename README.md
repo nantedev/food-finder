@@ -4,7 +4,7 @@ This project is designed to **review and reinforce full-stack development concep
 
 ## 🎯 **Features**
 
-- **User Authentication** (NextAuth).
+- **User Authentication** (NextAuth) : with a github account.
 - **Wishlist System**: Add/remove favorite locations.
 - **GraphQL API**: Queries & mutations for data handling.
 - **Styled Components** for modular styling.
